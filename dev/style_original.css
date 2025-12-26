@@ -1,0 +1,109 @@
+/* Base */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  line-height: 1.6;
+}
+
+/* Language Switch */
+.lang-switch {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  gap: 6px;
+  z-index: 1000;
+}
+
+.lang-switch button {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #e5e7eb;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.25s ease;
+}
+
+.lang-switch button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 900px;
+  margin: auto;
+  animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* Headings */
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.02em;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 1.15rem;
+  max-width: 680px;
+  opacity: 0.9;
+}
+
+/* Footer */
+footer {
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* Language blocks */
+.lang {
+  display: none;
+}
+
+/* Disclaimer tooltip */
+.disclaimer-trigger {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.disclaimer {
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  transform: translateY(100%);
+  width: 340px;
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e5e7eb;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 1000;
+}
+
+.disclaimer-trigger:hover .disclaimer {
+  opacity: 1;
+}
