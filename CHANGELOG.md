@@ -19,3 +19,4 @@ All notable production releases of Che'an.org web.
 Format: YY.MM.DD.HH.MM
 
 - 25.12.26.23.21: first time trying the release script
+- 25.12.26.23.31: first try
