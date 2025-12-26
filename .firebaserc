@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "default": "core-chean-dev",
+    "dev": "core-chean-dev",
+    "prod": "core-chean-prod"
+  },
+  "targets": {
+    "core-chean-dev": {
+      "hosting": {
+        "dev": ["core-chean-dev"]
+      }
+    },
+    "core-chean-prod": {
+      "hosting": {
+        "prod": ["core-chean-prod"]
+      }
+    }
+  }
+}
