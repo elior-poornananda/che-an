@@ -22,3 +22,4 @@ Format: YY.MM.DD.HH.MM
 - 25.12.26.23.31: first try
 - 25.12.27.01.40: test dns
 - 25.12.27.06.05: new landing page
+- 25.12.27.06.10: restore to nice version
