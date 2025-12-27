@@ -25,3 +25,4 @@ Format: YY.MM.DD.HH.MM
 - 25.12.27.06.10: restore to nice version
 - 25.12.27.06.23: landing page wiht all statement
 - 25.12.27.06.34: white bg
+- 25.12.27.12.56: test dns
