@@ -13,20 +13,7 @@ html, body {
   overscroll-behavior-y: none;
 }
 
-/* App link */
-.app-link {
-  position: fixed;
-  top: 24px;
-  right: 28px;
-  font-size: 13px;
-  color: rgba(0,0,0,0.45);
-  text-decoration: none;
-  z-index: 10;
-}
 
-.app-link:hover {
-  color: rgba(0,0,0,0.8);
-}
 
 /* BELIEF PLANE */
 .belief-plane {
@@ -159,26 +146,30 @@ footer p {
 }
 
 
-
+/* Floating app link (robust across desktop + mobile) */
 .app-link {
   position: fixed;
-  top: 24px;
-  right: 28px;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  right: 20px;
+
   font-size: 13px;
   color: rgba(0,0,0,0.45);
   text-decoration: none;
-  z-index: 20;
+
+  z-index: 1000;
+  pointer-events: auto;
+
   transition: color 0.3s ease;
 }
 
+/* When over dark sections */
 .app-link.on-dark {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.75);
 }
 
-
-@supports (-webkit-touch-callout: none) {
-  .app-link,
-  .scroll-hint {
-    position: absolute;
+/* Mobile reinforcement */
+@media (max-width: 768px) {
+  .app-link {
+    will-change: transform;
   }
 }
