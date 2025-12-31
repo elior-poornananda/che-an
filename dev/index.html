@@ -299,7 +299,7 @@
     </main>
   </div>
 
-  <!-- Scroll hint -->
+    <!-- Scroll hint -->
   <div class="scroll-hint" onclick="scrollDown()">↓</div>
 
   <!-- Scripts -->
@@ -312,65 +312,55 @@
       document.querySelector(".scroll-hint")?.remove();
     }, { once: true });
 
-    // Language switching
+    // ---------- Theme controller (active language aware) ----------
+    function getActiveDarkSection() {
+      const activeLang = document.querySelector('.lang:not(.hidden)');
+      if (!activeLang) return null;
+      return activeLang.querySelector('.content.dark');
+    }
+
+    function updateHeaderTheme() {
+      const darkSection = getActiveDarkSection();
+      if (!darkSection) return;
+
+      const rect = darkSection.getBoundingClientRect();
+      const triggerPoint = window.innerHeight * 0.55;
+      const isDark = rect.top <= triggerPoint;
+
+      document.body.classList.toggle('on-dark', isDark);
+    }
+
+    window.addEventListener('scroll', updateHeaderTheme, { passive: true });
+    window.addEventListener('resize', updateHeaderTheme);
+
+    // ---------- Language switching ----------
     const buttons = document.querySelectorAll('.lang-switch button');
     const blocks = document.querySelectorAll('.lang');
 
     function setLang(lang) {
-  blocks.forEach(b => b.classList.add('hidden'));
-  document.querySelector('.lang.' + lang).classList.remove('hidden');
+      blocks.forEach(b => b.classList.add('hidden'));
+      const target = document.querySelector('.lang.' + lang);
+      if (target) target.classList.remove('hidden');
 
-  document.documentElement.lang = lang;
-  localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang;
+      localStorage.setItem('lang', lang);
 
-  // 🔑 force correct icon color after layout change
-  requestAnimationFrame(() => {
-    updateHeaderTheme();
-  });
-}
-
-
-
+      // force correct theme after layout settles
+      requestAnimationFrame(() => updateHeaderTheme());
+    }
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
 
-    const saved = localStorage.getItem('lang') || navigator.language.slice(0,2);
-    if (['en','zh','ja'].includes(saved)) setLang(saved);
-    else setLang('en');
+    const saved = localStorage.getItem('lang') || (navigator.language || 'en').slice(0,2);
+    setLang(['en','zh','ja'].includes(saved) ? saved : 'en');
+
+    // initial theme
+    updateHeaderTheme();
   </script>
-
-
-
-<script>
-  const body = document.body;
-
-  const darkSection = document.querySelector('.content.dark');
-
-const observer = new IntersectionObserver(
-  ([entry]) => {
-    document.body.classList.toggle('on-dark', entry.isIntersecting);
-  },
-  { threshold: 0.15 }
-);
-
-observer.observe(darkSection);
-
-</script>
-
-<script>
-  function updateHeaderTheme() {
-    const darkSection = document.querySelector('.content.dark');
-    if (!darkSection) return;
-
-    const rect = darkSection.getBoundingClientRect();
-    const isDarkVisible = rect.top < window.innerHeight * 0.85;
-
-    document.body.classList.toggle('on-dark', isDarkVisible);
-  }
-</script>
-
 
 </body>
 </html>
+
+  
