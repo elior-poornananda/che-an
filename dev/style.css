@@ -184,8 +184,7 @@ body.scrolled .scroll-hint {
   position: absolute;
 }
 
-.scroll-terminator {
-  height: 1px;
-  background: transparent;
+.app-link,
+.scroll-hint {
+  transition: opacity 0.2s ease;
 }
-
