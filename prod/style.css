@@ -9,6 +9,7 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
   color: #111;
   background: #1e1e1e; /* ← THIS kills the white void */
+  overflow-x: hidden;
 }
 
 /* App link */
@@ -28,7 +29,7 @@ html, body {
 
 /* BELIEF PLANE */
 .belief-plane {
-  min-height: 100vh;
+  min-height: 100svh;
   background: #ffffff;
   display: flex;
   flex-direction: column;
