@@ -317,11 +317,20 @@
     const blocks = document.querySelectorAll('.lang');
 
     function setLang(lang) {
-      blocks.forEach(b => b.classList.add('hidden'));
-      document.querySelector('.lang.' + lang).classList.remove('hidden');
-      document.documentElement.lang = lang;
-      localStorage.setItem('lang', lang);
-    }
+  blocks.forEach(b => b.classList.add('hidden'));
+  document.querySelector('.lang.' + lang).classList.remove('hidden');
+
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+
+  // 🔑 force correct icon color after layout change
+  requestAnimationFrame(() => {
+    updateHeaderTheme();
+  });
+}
+
+
+
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
@@ -336,23 +345,30 @@
 
 <script>
   const body = document.body;
+
   const darkSection = document.querySelector('.content.dark');
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        body.classList.add('on-dark');
-      } else {
-        body.classList.remove('on-dark');
-      }
-    },
-    {
-      root: null,
-      threshold: 0.15   // triggers early & reliably on mobile
-    }
-  );
+const observer = new IntersectionObserver(
+  ([entry]) => {
+    document.body.classList.toggle('on-dark', entry.isIntersecting);
+  },
+  { threshold: 0.15 }
+);
 
-  observer.observe(darkSection);
+observer.observe(darkSection);
+
+</script>
+
+<script>
+  function updateHeaderTheme() {
+    const darkSection = document.querySelector('.content.dark');
+    if (!darkSection) return;
+
+    const rect = darkSection.getBoundingClientRect();
+    const isDarkVisible = rect.top < window.innerHeight * 0.85;
+
+    document.body.classList.toggle('on-dark', isDarkVisible);
+  }
 </script>
 
 
