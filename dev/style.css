@@ -1,3 +1,30 @@
+/* =====================================================
+   Che’an · Global Typography DNA
+   (LOCKED — shared with chean.app)
+===================================================== */
+
+:root {
+  --chean-font: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--chean-font);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3 {
+  font-family: var(--chean-font);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+p, .text-block {
+  max-width: 680px;
+}
+
+
+
 /* Base */
 * {
   box-sizing: border-box;
