@@ -255,3 +255,32 @@ footer p {
 
 .on-dark .app-link { color: rgba(255,255,255,0.75); }
 .on-dark .lang-switch button { color: rgba(255,255,255,0.65); }
+
+
+
+/* Founder layers */
+
+.founder-excerpt .emphasis {
+  font-size: 20px;
+}
+
+.founder-toggle {
+  margin-top: 24px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: rgba(230,230,230,0.6);
+  cursor: pointer;
+  padding: 0;
+  border-bottom: 1px solid rgba(230,230,230,0.25);
+  transition: all 0.25s ease;
+}
+
+.founder-toggle:hover {
+  color: rgba(255,255,255,0.9);
+  border-bottom-color: rgba(255,255,255,0.6);
+}
+
+.founder-toggle.collapse {
+  margin-top: 48px;
+}
