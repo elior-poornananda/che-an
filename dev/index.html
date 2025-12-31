@@ -184,7 +184,8 @@
           为未来世代的自我对齐与生命方向提供支持。
         </p>
 
-        
+      </section>
+
       <section class="block">
         <p>
           本研究计划由 Elior Poornananda 发起，他是澈安研究院及 Inner-State AI™ 理论体系的创立者。
@@ -274,7 +275,8 @@
           どのように寄与し得るかを長期的に探究しています。
         </p>
 
-        
+        </section>
+
         
       <section class="block">
         <p>
@@ -330,30 +332,28 @@
     else setLang('en');
   </script>
 
+
+
 <script>
-  const appLink = document.querySelector('.app-link');
-  const langSwitch = document.querySelector('.lang-switch');
-  const beliefPlane = document.querySelector('.belief-plane');
+  const body = document.body;
+  const darkSection = document.querySelector('.content.dark');
 
-  if (beliefPlane && appLink && langSwitch) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Light section
-          appLink.classList.remove('on-dark');
-          langSwitch.classList.remove('on-dark');
-        } else {
-          // Dark section
-          appLink.classList.add('on-dark');
-          langSwitch.classList.add('on-dark');
-        }
-      });
-    }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        body.classList.add('on-dark');
+      } else {
+        body.classList.remove('on-dark');
+      }
+    },
+    {
+      root: null,
+      threshold: 0.15   // triggers early & reliably on mobile
+    }
+  );
 
-    observer.observe(beliefPlane);
-  }
+  observer.observe(darkSection);
 </script>
-
 
 
 </body>
