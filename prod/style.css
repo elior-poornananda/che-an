@@ -103,19 +103,26 @@ footer p {
   color: rgba(230,230,230,0.45);
 }
 
+
+
 /* Mobile tuning */
 @media (max-width: 480px) {
 
   .institute {
-    font-size: 42px;        /* smaller so it fits one line */
+    font-size: 42px;       /* fits one line on mobile */
     line-height: 1.15;
-    white-space: nowrap;   /* prevent wrapping */
+    white-space: nowrap;
   }
 
   .belief {
-    font-size: 20px;        /* readable but not loud */
+    font-size: 20px;       /* calm, readable */
     line-height: 1.4;
-    white-space: nowrap;   /* keep belief on one line */
+    white-space: nowrap;
+  }
+
+  .belief-plane {
+    justify-content: flex-start;
+    padding-top: 32vh;     /* optical center, not mathematical */
   }
 
 }
