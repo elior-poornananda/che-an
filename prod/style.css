@@ -495,3 +495,18 @@ footer p {
     padding-left: 80px; /* subtle asymmetry */
   }
 }
+
+/* Founder – Foundational Premise */
+.founder-premise {
+  border-left: 2px solid rgba(255,255,255,0.25);
+  padding-left: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.founder-premise p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+}
+
+
