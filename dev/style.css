@@ -30,6 +30,7 @@ html, body {
 /* BELIEF PLANE */
 .belief-plane {
   min-height: 100svh;
+  min-height: 100dvh; /* modern browsers */
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -100,6 +101,7 @@ footer {
   margin: 120px auto 0; /* slightly tighter */
   padding: 40px 0 calc(32px + env(safe-area-inset-bottom));
   border-top: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 0;
 }
 
 
@@ -166,3 +168,9 @@ footer p {
 .app-link.on-dark {
   color: rgba(255,255,255,0.7);
 }
+
+html, body {
+  max-height: 100%;
+  overscroll-behavior-y: none;
+}
+
