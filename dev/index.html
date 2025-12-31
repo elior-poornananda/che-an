@@ -94,33 +94,16 @@
         </p>
       </section>
 
+      <section class="block">
+        <p>
+          Initiated by Elior Poornananda, founder and inventor of the Che’an Institute
+          and Inner-State AI™.
+        </p>
 
-       <!-- Founder / Initiator -->
-
-<!-- Founder / Initiator -->
-<section class="closing">
-
-  <div class="closing-inner">
-
-    <p class="closing-text">
-      Che’an is a research and education initiative devoted to the study of inner states,
-      emotional coherence, and human alignment in the age of intelligent systems.
-    </p>
-
-    <p class="closing-text">
-      Initiated by <span class="founder-name">Elior Poornananda</span>, founder and inventor of the Che’an framework 
-      and Inner-State AI™. His work explores the conditions under which inner coherence,
-      emotional clarity, and self-directed living naturally emerge — 
-      without prescription, diagnosis, or external authority.
-    </p>
-
-    <a class="founder-link" href="founder.html">
-      Founder profile
-    </a>
-
-  </div>
-
-</section>
+        <p class="founder-link">
+          <a href="founder.html">Founder profile</a>
+        </p>
+      </section>
 
 
       <footer>
@@ -353,6 +336,32 @@
     if (['en','zh','ja'].includes(saved)) setLang(saved);
     else setLang('en');
   </script>
+
+<script>
+  const appLink = document.querySelector('.app-link');
+  const langSwitch = document.querySelector('.lang-switch');
+  const beliefPlane = document.querySelector('.belief-plane');
+
+  if (beliefPlane && appLink && langSwitch) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Light section
+          appLink.classList.remove('on-dark');
+          langSwitch.classList.remove('on-dark');
+        } else {
+          // Dark section
+          appLink.classList.add('on-dark');
+          langSwitch.classList.add('on-dark');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(beliefPlane);
+  }
+</script>
+
+
 
 </body>
 </html>

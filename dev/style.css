@@ -201,52 +201,39 @@ footer p {
   display: none;
 }
 
-
-/* Closing section — institutional resolution */
-
-.closing {
-  padding: 160px 24px 120px;
-}
-
-.closing-inner {
-  max-width: 560px;            /* narrower = more intentional */
-  margin: 0 auto;
-  text-align: center;
-}
-
-.closing-text {
-  font-size: 15px;
-  line-height: 1.9;
+.founder-credit {
+  margin-top: 72px;
+  font-size: 14px;
+  line-height: 1.7;
   color: rgba(230,230,230,0.55);
-  margin-bottom: 32px;
-}
-
-.founder-name {
-  font-weight: 500;
-  color: rgba(230,230,230,0.75);
+  text-align: left;
 }
 
 .founder-link {
-  display: inline-block;
   margin-top: 24px;
+}
+
+.founder-link a {
   font-size: 14px;
-  color: rgba(230,230,230,0.45);
+  letter-spacing: 0.02em;
+  color: rgba(230,230,230,0.6);
   text-decoration: none;
-  border-bottom: 1px solid rgba(230,230,230,0.25);
   padding-bottom: 2px;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  border-bottom: 1px solid rgba(230,230,230,0.25);
+  transition: all 0.25s ease;
 }
 
-.founder-link:hover {
-  color: rgba(230,230,230,0.85);
-  border-color: rgba(230,230,230,0.6);
+.founder-link a:hover {
+  color: rgba(255,255,255,0.9);
+  border-bottom-color: rgba(255,255,255,0.6);
 }
 
-.closing::before {
-  content: "";
-  display: block;
-  width: 48px;
-  height: 1px;
-  background: rgba(255,255,255,0.12);
-  margin: 0 auto 96px;
+
+/* Language switch — dark section */
+.lang-switch.on-dark button {
+  color: rgba(255,255,255,0.65);
+}
+
+.lang-switch.on-dark button:hover {
+  color: rgba(255,255,255,0.9);
 }
