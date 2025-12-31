@@ -60,8 +60,9 @@ html, body {
 .content {
   background: #1e1e1e;
   color: #e6e6e6;
-  padding: 160px 24px 120px;
+  padding: 160px 24px 0; /* ← NO bottom padding */
 }
+
 
 .block {
   max-width: 760px;
@@ -93,13 +94,14 @@ h2 {
 }
 
 /* Footer */
+
 footer {
   max-width: 760px;
-  margin: 160px auto 0;
-  padding-top: 40px;
+  margin: 120px auto 0; /* slightly tighter */
+  padding: 40px 0 calc(32px + env(safe-area-inset-bottom));
   border-top: 1px solid rgba(255,255,255,0.08);
-    padding-bottom: env(safe-area-inset-bottom);
 }
+
 
 footer p {
   font-size: 13px;
@@ -128,9 +130,6 @@ footer p {
     padding-top: 32vh;     /* optical center, not mathematical */
   }
 
-  .content {
-    padding-bottom: 72px; /* was visually too tall */
-  }
 }
 
 
