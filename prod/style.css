@@ -515,3 +515,21 @@ footer p {
   }
 }
 
+
+/* =========================
+   Founder · Institutional Close
+========================= */
+
+.founder-close {
+  margin-top: 6.5rem;        /* deliberate pause */
+  font-size: 0.95em;
+  letter-spacing: 0.015em;  /* institutional seal */
+  opacity: 0.6;             /* recedes, does not compete */
+}
+
+/* Mobile rhythm */
+@media (max-width: 768px) {
+  .founder-close {
+    margin-top: 5.5rem;
+  }
+}
