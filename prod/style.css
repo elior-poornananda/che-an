@@ -272,9 +272,13 @@ footer p {
   color: rgba(230,230,230,0.6);
   cursor: pointer;
   padding: 0;
-  border-bottom: 1px solid rgba(230,230,230,0.25);
+    color: rgba(0,0,0,0.55);
+  border-bottom: 1px solid rgba(0,0,0,0.22);
   transition: all 0.25s ease;
 }
+
+
+
 
 .founder-toggle:hover {
   color: rgba(255,255,255,0.9);
@@ -283,4 +287,118 @@ footer p {
 
 .founder-toggle.collapse {
   margin-top: 48px;
+}
+
+
+/* =========================================
+   Founder page additions (append-only)
+========================================= */
+
+.founder-plane {
+  padding: 40px 24px;
+}
+
+.founder-card {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.founder-portrait {
+  width: 124px;
+  height: 124px;
+  margin: 0 auto 22px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.founder-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.founder-name {
+  font-size: clamp(30px, 3.2vw, 40px);
+  font-weight: 500;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.founder-role {
+  margin: 0 0 28px;
+  font-size: 14px;
+  color: rgba(0,0,0,0.55);
+}
+
+.founder-excerpt {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.founder-excerpt p {
+  font-size: 18px;
+  line-height: 1.75;
+  margin: 0 0 22px;
+  color: #111;
+}
+
+.founder-excerpt-last {
+  margin-bottom: 28px;
+}
+
+.founder-jump {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: rgba(0,0,0,0.55);
+  border-bottom: 1px solid rgba(0,0,0,0.22);
+  transition: all 0.25s ease;
+}
+
+.founder-jump:hover {
+  color: rgba(0,0,0,0.85);
+  border-bottom-color: rgba(0,0,0,0.45);
+}
+
+.founder-back {
+  margin-top: 20px;
+}
+
+.founder-back a {
+  color: rgba(0,0,0,0.45);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,0.18);
+  padding-bottom: 2px;
+  transition: all 0.25s ease;
+}
+
+.founder-back a:hover {
+  color: rgba(0,0,0,0.85);
+  border-bottom-color: rgba(0,0,0,0.45);
+}
+
+/* Dark section expand/collapse */
+.founder-expand {
+  margin-top: 40px;
+}
+
+.founder-toggle.is-open {
+  border-bottom-color: rgba(255,255,255,0.55);
+}
+
+/* Mobile tuning */
+@media (max-width: 480px) {
+  .founder-portrait { width: 112px; height: 112px; }
+  .founder-excerpt p { font-size: 17px; }
+}
+
+.founder-excerpt p strong {
+  font-weight: 600;
 }
