@@ -140,35 +140,7 @@
     darkSections.forEach(section => observer.observe(section));
   </script>
 
-<script>
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 8) {
-      document.body.classList.add("scrolled");
-    }
-  }, { passive: true });
-</script>
 
-<script>
-(function () {
-  const appLink = document.querySelector('.app-link');
-  const scrollHint = document.querySelector('.scroll-hint');
-
-  function onScroll() {
-    const scrollBottom =
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 8;
-
-    if (scrollBottom) {
-      if (appLink) appLink.style.opacity = '0';
-      if (scrollHint) scrollHint.style.opacity = '0';
-    } else {
-      if (appLink) appLink.style.opacity = '';
-      if (scrollHint) scrollHint.style.opacity = '';
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-})();
-</script>
 
 
 </body>
