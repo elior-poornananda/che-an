@@ -11,7 +11,6 @@ html, body {
   background: #1e1e1e; /* ← THIS kills the white void */
   overflow-x: hidden;
   overscroll-behavior-y: none;
-
 }
 
 /* App link */
@@ -60,11 +59,18 @@ html, body {
 
 
 /* CONTENT BELOW */
+
+
 .content {
   background: #1e1e1e;
   color: #e6e6e6;
-  padding: 160px 24px 0; /* ← NO bottom padding */
+  padding: 160px 24px 0;
+
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
+
 
 
 .block {
@@ -176,5 +182,10 @@ footer p {
 body.scrolled .app-link,
 body.scrolled .scroll-hint {
   position: absolute;
+}
+
+.scroll-terminator {
+  height: 1px;
+  background: transparent;
 }
 
