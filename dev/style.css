@@ -10,6 +10,8 @@ html, body {
   color: #111;
   background: #1e1e1e; /* ← THIS kills the white void */
   overflow-x: hidden;
+  overscroll-behavior-y: none;
+
 }
 
 /* App link */
@@ -29,8 +31,7 @@ html, body {
 
 /* BELIEF PLANE */
 .belief-plane {
-  min-height: 100svh;
-  min-height: 100dvh; /* modern browsers */
+  min-height: 100vh; /* stable, non-reactive */
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -39,6 +40,7 @@ html, body {
   text-align: center;
   padding: 40px;
 }
+
 
 .institute {
   font-size: clamp(50px, 5.5vw, 60px); /* slightly smaller */
@@ -167,10 +169,5 @@ footer p {
 
 .app-link.on-dark {
   color: rgba(255,255,255,0.7);
-}
-
-html, body {
-  max-height: 100%;
-  overscroll-behavior-y: none;
 }
 
