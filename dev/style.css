@@ -183,8 +183,3 @@ body.scrolled .app-link,
 body.scrolled .scroll-hint {
   position: absolute;
 }
-
-.app-link,
-.scroll-hint {
-  transition: opacity 0.2s ease;
-}
