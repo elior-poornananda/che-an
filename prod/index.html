@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet">
-
 <head>
   <meta charset="utf-8" />
   <title>chean institute</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="chean institute — We believe life unfolds from within." />
 
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- Quiet app link -->
+  <!-- Floating app link -->
   <a class="app-link" href="https://chean.app" target="_blank" rel="noopener">
     chean.app ↗
   </a>
 
-  <!-- BELIEF PLANE -->
+  <!-- BELIEF PLANE (light) -->
   <section class="belief-plane">
     <h1 class="institute">chean institute</h1>
     <p class="belief">
@@ -29,8 +30,8 @@
     </p>
   </section>
 
-  <!-- SCROLL CONTENT -->
-  <main class="content">
+  <!-- SCROLL CONTENT (dark section declared explicitly) -->
+  <main class="content dark">
 
     <section class="block">
       <p>
@@ -108,6 +109,36 @@
     </footer>
 
   </main>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">↓</div>
+
+  <!-- Scroll hint removal -->
+  <script>
+    window.addEventListener("scroll", () => {
+      document.querySelector(".scroll-hint")?.remove();
+    }, { once: true });
+  </script>
+
+  <!-- Section-based contrast switching -->
+  <script>
+    const appLink = document.querySelector('.app-link');
+    const darkSections = document.querySelectorAll('.dark');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          appLink.classList.add('on-dark');
+        } else {
+          appLink.classList.remove('on-dark');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    darkSections.forEach(section => observer.observe(section));
+  </script>
 
 </body>
 </html>
