@@ -8,6 +8,7 @@ html, body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
   color: #111;
+  background: #1e1e1e; /* ← THIS kills the white void */
 }
 
 /* App link */
@@ -96,6 +97,7 @@ footer {
   margin: 160px auto 0;
   padding-top: 40px;
   border-top: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 footer p {
@@ -125,6 +127,9 @@ footer p {
     padding-top: 32vh;     /* optical center, not mathematical */
   }
 
+  .content {
+    padding-bottom: 72px; /* was visually too tall */
+  }
 }
 
 
