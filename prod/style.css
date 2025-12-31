@@ -171,3 +171,10 @@ footer p {
   color: rgba(255,255,255,0.7);
 }
 
+
+
+body.scrolled .app-link,
+body.scrolled .scroll-hint {
+  position: absolute;
+}
+
