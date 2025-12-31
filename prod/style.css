@@ -335,12 +335,7 @@ footer p {
 }
 
 
-.founder-excerpt p {
-  font-size: 18px;
-  line-height: 1.75;
-  margin: 0 0 22px;
-  color: #111;
-}
+
 
 .founder-excerpt-last {
   margin-bottom: 28px;
@@ -396,18 +391,17 @@ footer p {
   font-weight: 600;
 }
 
-
-/* Founder header — horizontal on desktop */
+/* Founder header spacing */
 .founder-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-
-  max-width: 760px;
-  margin: 0 auto 48px;
-
-  text-align: left;
+  margin-bottom: 3.5rem;
 }
+
+@media (max-width: 768px) {
+  .founder-header {
+    margin-bottom: 4.5rem; /* more air on mobile */
+  }
+}
+
 
 
 /* Name + title block */
@@ -429,14 +423,6 @@ footer p {
 }
 
 
-/* Mobile: revert to vertical (important) */
-@media (max-width: 640px) {
-  .founder-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 18px;
-  }
-}
 
 
 /* =========================
@@ -509,4 +495,23 @@ footer p {
   color: rgba(255,255,255,0.9);
 }
 
+
+/* First teaser paragraph = lead */
+.founder-excerpt p:first-child {
+  font-size: 1.05em;
+}
+
+
+@media (max-width: 768px) {
+  .founder-excerpt p:first-child {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .founder-plane {
+    padding-top: 5.5rem;
+    padding-bottom: 6rem;
+  }
+}
 
