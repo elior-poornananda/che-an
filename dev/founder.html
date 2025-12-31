@@ -347,7 +347,7 @@
     <div class="founder-card">
     <div class="founder-header apple-header">
       <h1 class="founder-name">Elior Poornananda</h1>
-      <p class="founder-role">Che’an Institute · Founder</p>
+      <p class="founder-role">Che’an 研究院 創設者</p>
     </div>
 
       <div class="founder-excerpt">
@@ -528,16 +528,20 @@
     const buttons = document.querySelectorAll('.lang-switch button');
     const blocks = document.querySelectorAll('.lang');
 
-    function setLang(lang) {
-      blocks.forEach(b => b.classList.add('hidden'));
-      const target = document.querySelector('.lang.' + lang);
-      if (target) target.classList.remove('hidden');
+ function setLang(lang) {
+  document.querySelectorAll('.lang').forEach(el => {
+    el.classList.add('hidden');
+  });
 
-      document.documentElement.lang = lang;
-      localStorage.setItem('lang', lang);
+  const target = document.querySelector('.lang.' + lang);
+  if (target) target.classList.remove('hidden');
 
-      requestAnimationFrame(() => updateHeaderTheme());
-    }
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+}
+
+
+
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
@@ -616,6 +620,35 @@ document.addEventListener('click', (e) => {
   }
 });
 
+</script>
+
+<script>
+  (function autoDetectLanguage() {
+    // 1️⃣ Respect manual choice if exists
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      setLang(savedLang);
+      return;
+    }
+
+    // 2️⃣ Detect browser language
+    const navLang = navigator.language || navigator.userLanguage || 'en';
+    const lang = navLang.toLowerCase();
+
+    let targetLang = 'en';
+
+    // Japanese
+    if (lang.startsWith('ja')) {
+      targetLang = 'ja';
+    }
+    // Chinese: Simplified + Traditional
+    else if (lang.startsWith('zh')) {
+      targetLang = 'zh';
+    }
+
+    // 3️⃣ Apply
+    setLang(targetLang);
+  })();
 </script>
 
 
