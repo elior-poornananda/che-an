@@ -126,3 +126,38 @@ footer p {
   }
 
 }
+
+
+.scroll-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  color: rgba(0,0,0,0.35);
+  opacity: 0.8;
+  animation: breathe 2.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.6; }
+}
+
+
+.app-link {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.45);
+  text-decoration: none;
+  z-index: 20;
+  transition: color 0.3s ease;
+}
+
+.app-link.on-dark {
+  color: rgba(255,255,255,0.7);
+}
