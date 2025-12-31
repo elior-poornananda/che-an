@@ -5,7 +5,14 @@
 
 :root {
   --chean-font: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
+  --chean-anchor: #5b5de6; /* Che’an indigo-violet */
 }
+
+a {
+  color: var(--chean-anchor);
+}
+
+
 
 body {
   font-family: var(--chean-font);
