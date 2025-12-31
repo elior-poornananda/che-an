@@ -252,3 +252,6 @@ footer p {
 
 .on-dark .app-link
 .on-dark .lang-switch button
+
+.on-dark .app-link { color: rgba(255,255,255,0.75); }
+.on-dark .lang-switch button { color: rgba(255,255,255,0.65); }
