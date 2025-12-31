@@ -140,5 +140,14 @@
     darkSections.forEach(section => observer.observe(section));
   </script>
 
+<script>
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 8) {
+      document.body.classList.add("scrolled");
+    }
+  }, { passive: true });
+</script>
+
+
 </body>
 </html>
