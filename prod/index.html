@@ -17,7 +17,8 @@
 <link rel="stylesheet" href="./styles/layout.css">
 </head>
 
-<body>
+<body data-page="index">
+
 
   <!-- Language switch -->
   <nav class="lang-switch">
@@ -36,9 +37,12 @@
   ========================= -->
   <div class="lang en">
 
-    <section class="belief-plane">
+<section class="belief-plane index-plane">
+
+  <div class="founder-card">
       <h1 class="institute">chean institute</h1>
       <p class="belief">We believe life unfolds from within.</p>
+  </div>
     </section>
 
     <main class="content dark">
@@ -124,9 +128,12 @@
   ========================= -->
   <div class="lang zh hidden">
 
-    <section class="belief-plane">
+ <section class="belief-plane index-plane">
+
+  <div class="founder-card">
       <h1 class="institute">chean institute</h1>
       <p class="belief">我们相信，生命的展开始于内在。</p>
+      </div>
     </section>
 
     <main class="content dark">
@@ -215,9 +222,12 @@
   ========================= -->
   <div class="lang ja hidden">
 
-    <section class="belief-plane">
+<section class="belief-plane index-plane">
+
+  <div class="founder-card">
       <h1 class="institute">chean institute</h1>
       <p class="belief">人生は、内側から静かに立ち現れる。</p>
+      </div>
     </section>
 
     <main class="content dark">
@@ -322,16 +332,26 @@
       return activeLang.querySelector('.content.dark');
     }
 
-    function updateHeaderTheme() {
-      const darkSection = getActiveDarkSection();
-      if (!darkSection) return;
-
-      const rect = darkSection.getBoundingClientRect();
-      const triggerPoint = window.innerHeight * 0.55;
-      const isDark = rect.top <= triggerPoint;
-
-      document.body.classList.toggle('on-dark', isDark);
+ function updateHeaderTheme() {
+  if (document.body.dataset.page === 'index') {
+    const hero = document.querySelector('.belief-plane');
+    const rect = hero.getBoundingClientRect();
+    if (rect.bottom > window.innerHeight * 0.6) {
+      document.body.classList.remove('on-dark');
+      return;
     }
+  }
+
+  const darkSection = getActiveDarkSection();
+  if (!darkSection) return;
+
+  const rect = darkSection.getBoundingClientRect();
+  const triggerPoint = window.innerHeight * 0.55;
+  const isDark = rect.top <= triggerPoint;
+
+  document.body.classList.toggle('on-dark', isDark);
+}
+
 
     window.addEventListener('scroll', updateHeaderTheme, { passive: true });
     window.addEventListener('resize', updateHeaderTheme);
