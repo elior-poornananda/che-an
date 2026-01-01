@@ -509,11 +509,30 @@ footer p {
   display: block;
   border-radius: 4px;
 }
-@media (min-width: 900px) {
-  .founder-image {
-    padding-left: 80px; /* subtle asymmetry */
+
+/* ===============================
+   Founder image — mobile presence
+   =============================== */
+
+@media (max-width: 768px) {
+
+  .founder-image-section {
+    margin: 96px 0; /* slightly tighter than desktop */
   }
+
+  .founder-image {
+    max-width: 96vw;        /* wider presence */
+    margin-left: -2vw;     /* subtle horizontal bleed */
+    margin-right: -2vw;
+    padding: 0;             /* remove side padding on mobile */
+  }
+
+  .founder-image img {
+    border-radius: 6px;     /* calm, premium */
+  }
+
 }
+
 
 /* Founder – Foundational Premise */
 .founder-premise {
