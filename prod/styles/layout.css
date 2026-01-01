@@ -75,6 +75,9 @@ html, body {
   color: #555;
   margin-top: 0;
   line-height: 1.35;
+    max-width: 680px;
+  margin: 0 auto;       /* ← THIS is the missing piece */
+  text-align: center;
 }
 
 
@@ -438,6 +441,8 @@ footer p {
   display: flex;
   flex-direction: column;
   justify-content: center;
+    margin-top: 2.5rem;     /* creates a crown */
+  margin-bottom: 7rem;    /* THIS is the missing drama */
 }
 
 /* Adjust spacing since we removed vertical stacking */
@@ -570,3 +575,48 @@ footer p {
   justify-content: center;
 }
 
+/* Founder teaser — Apple editorial rhythm */
+
+.founder-lead {
+  font-size: 1.15em;
+  line-height: 1.55;
+  margin-bottom: 2.2rem;
+}
+
+.founder-body p {
+  margin-bottom: 1.6rem;
+}
+
+.founder-seal {
+  margin-top: 2.8rem;
+  font-size: 0.95em;
+  letter-spacing: 0.015em;
+  opacity: 0.65;
+}
+
+/* Founder identity — Apple editorial header */
+
+.founder-identity {
+  margin-bottom: 5.5rem;     /* THIS is the missing wow gap */
+  text-align: center;
+}
+
+.founder-name {
+  margin-bottom: 0.75rem;    /* tighter bond to role */
+}
+
+.founder-role {
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  opacity: 0.55;
+}
+
+.founder-name {
+  letter-spacing: -0.015em;
+}
+
+.founder-lead {
+  font-size: 1.15em;
+  line-height: 1.6;
+  margin-bottom: 3.5rem;
+}
