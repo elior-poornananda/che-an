@@ -7,13 +7,18 @@
   "targets": {
     "core-chean-dev": {
       "hosting": {
-        "dev": ["core-chean-dev"]
+        "dev": [
+          "core-chean-dev"
+        ]
       }
     },
     "core-chean-prod": {
       "hosting": {
-        "prod": ["core-chean-prod"]
+        "prod": [
+          "core-chean-prod"
+        ]
       }
     }
-  }
+  },
+  "etags": {}
 }

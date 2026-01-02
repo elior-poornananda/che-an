@@ -4,31 +4,18 @@
    (LOCKED — shared with chean.app)
 ===================================================== */
 
-:root {
-  --chean-font: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
-  --chean-anchor: #5b5de6; /* Che’an indigo-violet */
-}
+
 
 a {
   color: var(--chean-anchor);
 }
 
 
-
-body {
-  font-family: var(--chean-font);
-  line-height: 1.65;
-  letter-spacing: -0.01em;
-}
-
 h1, h2, h3 {
   font-family: var(--chean-font);
   letter-spacing: -0.02em;
 }
 
-p, .text-block {
-  max-width: 680px;
-}
 
 
 
@@ -181,56 +168,8 @@ footer p {
 }
 
 
-/* Floating app link (robust across desktop + mobile) */
-.app-link {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  right: 20px;
-
-  font-size: 13px;
-  color: rgba(0,0,0,0.45);
-  text-decoration: none;
-
-  z-index: 1000;
-  pointer-events: auto;
-
-  transition: color 0.3s ease;
-}
-
-/* When over dark sections */
-.app-link.on-dark {
-  color: rgba(255,255,255,0.75);
-}
-
-/* Mobile reinforcement */
-@media (max-width: 768px) {
-  .app-link {
-    will-change: transform;
-  }
-}
 
 
-.lang-switch {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  gap: 10px;
-  z-index: 1000;
-}
-
-.lang-switch button {
-  background: none;
-  border: none;
-  font-size: 12px;
-  color: rgba(0,0,0,0.45);
-  cursor: pointer;
-  padding: 0;
-}
-
-.lang-switch button:hover {
-  color: rgba(0,0,0,0.85);
-}
 
 .hidden {
   display: none;
@@ -263,33 +202,6 @@ footer p {
   border-bottom-color: rgba(255,255,255,0.6);
 }
 
-
-/* Language switch — dark section */
-.lang-switch.on-dark button {
-  color: rgba(255,255,255,0.65);
-}
-
-.lang-switch.on-dark button:hover {
-  color: rgba(255,255,255,0.9);
-}
-
-/* Light section (default) */
-.app-link,
-.lang-switch button {
-  color: rgba(0,0,0,0.45);
-}
-
-/* Dark section override */
-.on-dark .app-link,
-.on-dark .lang-switch button {
-  color: rgba(255,255,255,0.75);
-}
-
-.on-dark .app-link
-.on-dark .lang-switch button
-
-.on-dark .app-link { color: rgba(255,255,255,0.75); }
-.on-dark .lang-switch button { color: rgba(255,255,255,0.65); }
 
 
 

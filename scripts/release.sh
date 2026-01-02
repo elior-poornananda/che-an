@@ -2,11 +2,14 @@
 set -e
 
 ############################################
-# CONFIG (che-an)
+# CONFIG (chean.co)
 ############################################
 PROD_ALIAS="prod"
 DEV_ALIAS="dev"
 BRANCH="main"
+
+DEV_ROOT="/Users/elior/Web/chean/dev/chean_co"
+PROD_ROOT="/Users/elior/Web/chean/prod/chean_co"
 
 VERSION=$(date +"%y.%m.%d.%H.%M")
 
@@ -15,7 +18,7 @@ VERSION=$(date +"%y.%m.%d.%H.%M")
 ############################################
 cleanup() {
   echo ""
-  echo "🔄 Restoring Firebase environment to DEV (che-an)"
+  echo "🔄 Restoring Firebase environment to DEV (chean.co)"
   firebase use "$DEV_ALIAS" >/dev/null || true
   echo "✅ Firebase environment set to DEV"
 }
@@ -24,9 +27,20 @@ trap cleanup EXIT
 ############################################
 # START
 ############################################
-echo "🚀 Starting PRODUCTION release (che-an)"
+echo "🚀 Starting PRODUCTION release (chean.co)"
 echo "🏷️  Version: $VERSION"
 echo ""
+
+############################################
+# ENSURE RUN FROM DEV ROOT
+############################################
+CURRENT_DIR=$(pwd)
+if [ "$CURRENT_DIR" != "$DEV_ROOT" ]; then
+  echo "❌ This script must be run from:"
+  echo "   $DEV_ROOT"
+  echo "   Current dir: $CURRENT_DIR"
+  exit 1
+fi
 
 ############################################
 # CHECK BRANCH
@@ -48,82 +62,61 @@ if ! git diff-index --quiet HEAD --; then
   echo ""
   echo "⚠️  Git working tree is DIRTY."
   echo ""
-  echo "📄 This means you have changes that are NOT committed yet."
-  echo ""
-  echo "📄 Here is what is dirty:"
-  echo "----------------------------------------"
   git status
-  echo "----------------------------------------"
   echo ""
 
-  echo "🧠 Before releasing to PRODUCTION, please reflect:"
   read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
-
-  if [ -z "$RELEASE_NOTES" ]; then
-    echo "❌ Release notes cannot be empty."
-    exit 1
-  fi
+  [ -z "$RELEASE_NOTES" ] && echo "❌ Release notes cannot be empty." && exit 1
 
   read -r -p "✅ Commit these changes and continue release? (y/n): " CONFIRM
-  if [[ "$CONFIRM" != "y" ]]; then
-    echo "❌ Release aborted."
-    exit 1
-  fi
+  [[ "$CONFIRM" != "y" ]] && echo "❌ Release aborted." && exit 1
 
-  echo ""
   echo "📦 Committing changes..."
   git add -A
-  git commit -m "release: $RELEASE_NOTES ($VERSION)"
-
+  git commit -m "release(chean.co): $RELEASE_NOTES ($VERSION)"
 else
   echo "✅ Git working tree is clean."
-
-  echo ""
-  echo "🧠 Before releasing to PRODUCTION, please reflect:"
   read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
-
-  if [ -z "$RELEASE_NOTES" ]; then
-    echo "❌ Release notes cannot be empty."
-    exit 1
-  fi
+  [ -z "$RELEASE_NOTES" ] && echo "❌ Release notes cannot be empty." && exit 1
 fi
 
 ############################################
 # PROMOTE DEV → PROD
 ############################################
 echo ""
-echo "➡️  Promoting DEV → PROD (che-an)"
-rsync -av --delete dev/ prod/
-
-git commit -am "release: promote dev to prod ($VERSION)" || true
+echo "➡️  Promoting DEV → PROD (chean.co)"
+rsync -av --delete \
+  --exclude=".git" \
+  --exclude="node_modules" \
+  "$DEV_ROOT/" "$PROD_ROOT/"
 
 ############################################
-# UPDATE CHANGELOG
+# UPDATE PROD CHANGELOG
 ############################################
-echo ""
-echo "➡️  Updating changelog"
-echo "- $VERSION: $RELEASE_NOTES" >> CHANGELOG.md
-git commit -am "chore: update changelog for $VERSION"
+echo "- $VERSION: $RELEASE_NOTES" >> "$PROD_ROOT/CHANGELOG.md"
+
+############################################
+# COMMIT PROD PROMOTION
+############################################
+cd "$PROD_ROOT"
+git add -A
+git commit -m "release(chean.co): promote dev to prod ($VERSION)" || true
 
 ############################################
 # TAG RELEASE
 ############################################
-echo ""
-echo "🏷️  Tagging release"
-git tag "v$VERSION"
+git tag "chean-co-v$VERSION"
 
 ############################################
 # PUSH TO REMOTE
 ############################################
-echo ""
-echo "⬆️  Pushing to remote"
 git push origin "$BRANCH" --tags
 
 ############################################
 # FIREBASE DEPLOY (PROD)
 ############################################
 echo ""
-echo "🔥 Switching Firebase project to PROD (che-an)"
+echo "🔥 Switching Firebase project to PROD (chean.co)"
 firebase use "$PROD_ALIAS"
 
 echo ""
@@ -134,4 +127,4 @@ firebase deploy --only hosting:"$PROD_ALIAS"
 # DONE
 ############################################
 echo ""
-echo "🎉 PRODUCTION release $VERSION completed successfully (che-an)"
+echo "🎉 PRODUCTION release $VERSION completed successfully (chean.co)"
