@@ -27,7 +27,7 @@ trap cleanup EXIT
 ############################################
 # START
 ############################################
-echo "🚀 Starting PRODUCTION release (chean.co)"
+echo "🚀 Starting DEV + PROD release (chean.co)"
 echo "🏷️  Version: $VERSION"
 echo ""
 
@@ -45,43 +45,43 @@ fi
 ############################################
 # CHECK BRANCH
 ############################################
-echo "➡️  Checking git branch"
 CURRENT_BRANCH=$(git branch --show-current)
-
 if [ "$CURRENT_BRANCH" != "$BRANCH" ]; then
-  echo "❌ You are on '$CURRENT_BRANCH'. Releases must be from '$BRANCH'."
+  echo "❌ Releases must be from '$BRANCH'"
   exit 1
 fi
 
 ############################################
 # CHECK WORKING TREE
 ############################################
-echo "➡️  Checking git working tree"
-
 if ! git diff-index --quiet HEAD --; then
-  echo ""
-  echo "⚠️  Git working tree is DIRTY."
-  echo ""
+  echo "⚠️  Uncommitted changes detected:"
   git status
   echo ""
 
-  read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
-  [ -z "$RELEASE_NOTES" ] && echo "❌ Release notes cannot be empty." && exit 1
+  read -r -p "✍️  Release notes: " RELEASE_NOTES
+  [ -z "$RELEASE_NOTES" ] && echo "❌ Notes required." && exit 1
 
-  read -r -p "✅ Commit these changes and continue release? (y/n): " CONFIRM
-  [[ "$CONFIRM" != "y" ]] && echo "❌ Release aborted." && exit 1
+  read -r -p "✅ Commit and continue? (y/n): " CONFIRM
+  [[ "$CONFIRM" != "y" ]] && exit 1
 
-  echo "📦 Committing changes..."
   git add -A
   git commit -m "release(chean.co): $RELEASE_NOTES ($VERSION)"
 else
-  echo "✅ Git working tree is clean."
-  read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
-  [ -z "$RELEASE_NOTES" ] && echo "❌ Release notes cannot be empty." && exit 1
+  read -r -p "✍️  Release notes: " RELEASE_NOTES
+  [ -z "$RELEASE_NOTES" ] && echo "❌ Notes required." && exit 1
 fi
 
 ############################################
-# PROMOTE DEV → PROD
+# DEPLOY DEV
+############################################
+echo ""
+echo "🧪 Deploying DEV environment"
+firebase use "$DEV_ALIAS"
+firebase deploy --only hosting:"$DEV_ALIAS"
+
+############################################
+# PROMOTE DEV → PROD (filesystem)
 ############################################
 echo ""
 echo "➡️  Promoting DEV → PROD (chean.co)"
@@ -103,28 +103,21 @@ git add -A
 git commit -m "release(chean.co): promote dev to prod ($VERSION)" || true
 
 ############################################
-# TAG RELEASE
+# TAG + PUSH
 ############################################
 git tag "chean-co-v$VERSION"
-
-############################################
-# PUSH TO REMOTE
-############################################
 git push origin "$BRANCH" --tags
 
 ############################################
-# FIREBASE DEPLOY (PROD)
+# DEPLOY PROD
 ############################################
 echo ""
-echo "🔥 Switching Firebase project to PROD (chean.co)"
+echo "🔥 Deploying PROD environment"
 firebase use "$PROD_ALIAS"
-
-echo ""
-echo "🔥 Deploying to Firebase (PROD)"
 firebase deploy --only hosting:"$PROD_ALIAS"
 
 ############################################
 # DONE
 ############################################
 echo ""
-echo "🎉 PRODUCTION release $VERSION completed successfully (chean.co)"
+echo "🎉 DEV + PROD release $VERSION completed successfully (chean.co)"
