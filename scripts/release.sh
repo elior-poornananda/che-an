@@ -45,31 +45,49 @@ fi
 ############################################
 # CHECK BRANCH
 ############################################
+echo "➡️  Checking git branch"
 CURRENT_BRANCH=$(git branch --show-current)
+
 if [ "$CURRENT_BRANCH" != "$BRANCH" ]; then
-  echo "❌ Releases must be from '$BRANCH'"
+  echo "❌ You are on '$CURRENT_BRANCH'. Releases must be from '$BRANCH'."
   exit 1
 fi
 
 ############################################
 # CHECK WORKING TREE
 ############################################
+echo "➡️  Checking git working tree"
+
 if ! git diff-index --quiet HEAD --; then
-  echo "⚠️  Uncommitted changes detected:"
+  echo ""
+  echo "⚠️  Git working tree is DIRTY."
+  echo ""
   git status
   echo ""
 
-  read -r -p "✍️  Release notes: " RELEASE_NOTES
-  [ -z "$RELEASE_NOTES" ] && echo "❌ Notes required." && exit 1
+  read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
+  if [ -z "$RELEASE_NOTES" ]; then
+    echo "❌ Release notes cannot be empty."
+    exit 1
+  fi
 
-  read -r -p "✅ Commit and continue? (y/n): " CONFIRM
-  [[ "$CONFIRM" != "y" ]] && exit 1
+  read -r -p "✅ Commit these changes and continue release? (y/n): " CONFIRM
+  if [[ "$CONFIRM" != "y" ]]; then
+    echo "❌ Release aborted."
+    exit 1
+  fi
 
+  echo "📦 Committing changes..."
   git add -A
   git commit -m "release(chean.co): $RELEASE_NOTES ($VERSION)"
 else
-  read -r -p "✍️  Release notes: " RELEASE_NOTES
-  [ -z "$RELEASE_NOTES" ] && echo "❌ Notes required." && exit 1
+  echo "✅ Git working tree is clean."
+
+  read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
+  if [ -z "$RELEASE_NOTES" ]; then
+    echo "❌ Release notes cannot be empty."
+    exit 1
+  fi
 fi
 
 ############################################
@@ -78,10 +96,10 @@ fi
 echo ""
 echo "🧪 Deploying DEV environment"
 firebase use "$DEV_ALIAS"
-firebase deploy --only hosting:"$DEV_ALIAS"
+firebase deploy --only hosting
 
 ############################################
-# PROMOTE DEV → PROD (filesystem)
+# PROMOTE DEV → PROD (filesystem only)
 ############################################
 echo ""
 echo "➡️  Promoting DEV → PROD (chean.co)"
@@ -114,7 +132,7 @@ git push origin "$BRANCH" --tags
 echo ""
 echo "🔥 Deploying PROD environment"
 firebase use "$PROD_ALIAS"
-firebase deploy --only hosting:"$PROD_ALIAS"
+firebase deploy --only hosting
 
 ############################################
 # DONE
