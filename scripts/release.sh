@@ -4,8 +4,8 @@ set -e
 ############################################
 # CONFIG (chean.co)
 ############################################
-PROD_ALIAS="prod"
 DEV_ALIAS="dev"
+PROD_ALIAS="prod"
 BRANCH="main"
 
 DEV_ROOT="/Users/elior/Web/chean/dev/chean_co"
@@ -34,11 +34,9 @@ echo ""
 ############################################
 # ENSURE RUN FROM DEV ROOT
 ############################################
-CURRENT_DIR=$(pwd)
-if [ "$CURRENT_DIR" != "$DEV_ROOT" ]; then
-  echo "❌ This script must be run from:"
+if [ "$(pwd)" != "$DEV_ROOT" ]; then
+  echo "❌ Must run from:"
   echo "   $DEV_ROOT"
-  echo "   Current dir: $CURRENT_DIR"
   exit 1
 fi
 
@@ -47,9 +45,8 @@ fi
 ############################################
 echo "➡️  Checking git branch"
 CURRENT_BRANCH=$(git branch --show-current)
-
 if [ "$CURRENT_BRANCH" != "$BRANCH" ]; then
-  echo "❌ You are on '$CURRENT_BRANCH'. Releases must be from '$BRANCH'."
+  echo "❌ Releases must be from '$BRANCH'"
   exit 1
 fi
 
@@ -59,36 +56,28 @@ fi
 echo "➡️  Checking git working tree"
 
 if ! git diff-index --quiet HEAD --; then
-  echo ""
   echo "⚠️  Git working tree is DIRTY."
-  echo ""
   git status
   echo ""
 
   read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
-  if [ -z "$RELEASE_NOTES" ]; then
-    echo "❌ Release notes cannot be empty."
-    exit 1
-  fi
+  [ -z "$RELEASE_NOTES" ] && exit 1
 
   read -r -p "✅ Commit these changes and continue release? (y/n): " CONFIRM
-  if [[ "$CONFIRM" != "y" ]]; then
-    echo "❌ Release aborted."
-    exit 1
-  fi
+  [[ "$CONFIRM" != "y" ]] && exit 1
 
-  echo "📦 Committing changes..."
   git add -A
   git commit -m "release(chean.co): $RELEASE_NOTES ($VERSION)"
 else
-  echo "✅ Git working tree is clean."
-
   read -r -p "✍️  Release notes (one sentence): " RELEASE_NOTES
-  if [ -z "$RELEASE_NOTES" ]; then
-    echo "❌ Release notes cannot be empty."
-    exit 1
-  fi
+  [ -z "$RELEASE_NOTES" ] && exit 1
 fi
+
+############################################
+# TAG RELEASE (DEV REPO ONLY)
+############################################
+git tag "chean-co-v$VERSION"
+git push origin "$BRANCH" --tags
 
 ############################################
 # DEPLOY DEV
@@ -99,32 +88,15 @@ firebase use "$DEV_ALIAS"
 firebase deploy --only hosting
 
 ############################################
-# PROMOTE DEV → PROD (filesystem only)
+# PROMOTE DEV → PROD (FILES ONLY)
 ############################################
 echo ""
 echo "➡️  Promoting DEV → PROD (chean.co)"
 rsync -av --delete \
   --exclude=".git" \
+  --exclude=".firebase" \
   --exclude="node_modules" \
   "$DEV_ROOT/" "$PROD_ROOT/"
-
-############################################
-# UPDATE PROD CHANGELOG
-############################################
-echo "- $VERSION: $RELEASE_NOTES" >> "$PROD_ROOT/CHANGELOG.md"
-
-############################################
-# COMMIT PROD PROMOTION
-############################################
-cd "$PROD_ROOT"
-git add -A
-git commit -m "release(chean.co): promote dev to prod ($VERSION)" || true
-
-############################################
-# TAG + PUSH
-############################################
-git tag "chean-co-v$VERSION"
-git push origin "$BRANCH" --tags
 
 ############################################
 # DEPLOY PROD
